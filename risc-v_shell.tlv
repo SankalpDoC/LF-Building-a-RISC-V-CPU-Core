@@ -43,11 +43,9 @@
    
    $reset = *reset;
    
-   
    $pc[31:0] = >>1$next_pc;
    $next_pc[31:0] = $reset ? 32'd0 : $pc + 32'd4;
    //implemented pc lab 1
-   
    `READONLY_MEM($pc , $$instr[31:0])
    //implemented IMem lab 2
    
@@ -66,23 +64,23 @@
    $is_j_instr = $instr[6:2] ==? 5'b11011;
    
    $is_u_instr = $instr[6:2] ==? 5'b0x101;
-   //Implemented Lab 3
+   //Implemented 
    
-   $func7[6:0] = $instr[31:25];
-   $func3[2:0] = $instr[14:12];
+   $funct7[6:0] = $instr[31:25];
+   $funct3[2:0] = $instr[14:12];
    $rs1[4:0] = $instr[19:15];
    $rs2[4:0] = $instr[24:20];
    $rd[4:0] = $instr[11:7];
    $opcode[6:0] = $instr[6:0];
    
-   $func7_valid = $is_r_instr;
-   $func3_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
+   $funct7_valid = $is_r_instr;
+   $funct3_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
    $rs1_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
    $rs2_valid = $is_r_instr || $is_s_instr || $is_b_instr;
    $rd_valid = $is_r_instr || $is_i_instr || $is_u_instr || $is_j_instr;
    $imm_valid = $is_u_instr || $is_i_instr || $is_s_instr || $is_b_instr || $is_j_instr;
    
-   `BOGUS_USE($func3 $func3_valid $func7 $func7_valid $imm_valid $opcode $rd $rd_valid $rs1 $rs1_valid $rs2 $rs2_valid)
+   `BOGUS_USE($funct3 $funct3_valid $funct7 $funct7_valid $imm_valid $opcode $rd $rd_valid $rs1 $rs1_valid $rs2 $rs2_valid)
    
    $imm[31:0] = $is_i_instr ? {  {21{$instr[31]}},  $instr[30:20]  } :
                 $is_s_instr ? {  {21{$instr[31]}},  $instr[30:25],  $instr[11:7] } :
@@ -90,7 +88,20 @@
                 $is_u_instr ? {  $instr[31],  $instr[30:12],  12'b0 } :
                 $is_j_instr ? {  {12{$instr[31]}},  $instr[19:12],  $instr[20],  $instr[30:21],  1'b0  } :
                               32'b0;  // Default
-   //Implemented Lab 4
+   //Implemented 
+   
+   $dec_bits[10:0] = {$funct7[5],$funct3,$opcode};
+   $is_beq = $dec_bits ==? 11'bx_000_1100011;
+   $is_bne = $dec_bits ==? 11'bx_001_1100011;
+   $is_blt = $dec_bits ==? 11'bx_100_1100011;
+   $is_bge = $dec_bits ==? 11'bx_101_1100011;
+   $is_bltu = $dec_bits ==? 11'bx_110_1100011;
+   $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
+   $is_addi = $dec_bits ==? 11'bx_000_0010011;
+   $is_add = $dec_bits ==? 11'b0_000_0110011;
+   
+   `BOGUS_USE($imm $is_add $is_addi $is_beq $is_bge $is_bgeu $is_blt $is_bltu $is_bne)
+   //Lab 3 DECoder Implemented
    
    
    
