@@ -44,8 +44,11 @@
    $reset = *reset;
    
    
-   // YOUR CODE HERE
-   // ...
+   $pc[31:0] = >>1$next_pc;
+   $next_pc[31:0] = $reset ? 32'd0 : $pc + 32'd4;
+   //implemented pc lab 1
+   `READONLY_MEM($pc , $$instr[31:0])
+   //implemented IMem lab 2
    
    
    // Assert these to end simulation (before Makerchip cycle limit).
