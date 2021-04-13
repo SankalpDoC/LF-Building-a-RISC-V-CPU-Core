@@ -64,7 +64,7 @@
    $is_j_instr = $instr[6:2] ==? 5'b11011;
    
    $is_u_instr = $instr[6:2] ==? 5'b0x101;
-   //Implemented 
+   //Implemented Decode Logic: Instruction Type
    
    $funct7[6:0] = $instr[31:25];
    $funct3[2:0] = $instr[14:12];
@@ -88,7 +88,7 @@
                 $is_u_instr ? {  $instr[31],  $instr[30:12],  12'b0 } :
                 $is_j_instr ? {  {12{$instr[31]}},  $instr[19:12],  $instr[20],  $instr[30:21],  1'b0  } :
                               32'b0;  // Default
-   //Implemented 
+   //Implemented Decode Logic: Instruction Fields
    
    $dec_bits[10:0] = {$funct7[5],$funct3,$opcode};
    $is_beq = $dec_bits ==? 11'bx_000_1100011;
