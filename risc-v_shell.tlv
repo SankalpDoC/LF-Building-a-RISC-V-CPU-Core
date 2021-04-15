@@ -103,7 +103,12 @@
    `BOGUS_USE($imm $is_add $is_addi $is_beq $is_bge $is_bgeu $is_blt $is_bltu $is_bne)
    // Lab 3 DECoder Implemented
    
-   // --------------EVERYTHING LOOKS GOOD TILL HERE------------------------
+   
+   
+   
+   // ----------------------------------------------EVERYTHING LOOKS GOOD TILL HERE-------------------------------------------------
+   
+   
    
    //Below code for "Connect the appropriate decode output signals to the register file read input signals to read the correct registers when they are needed."
    
@@ -121,9 +126,14 @@
    // Below code for "Connect the output read data to new signals named $src1_value and $src2_value. (Bit ranges are not needed, as they are explicit within the macro definition.)"
    $src1_value = $rd1_data;
    $src2_value = $rd2_data;
+   
+   
+   
    /* As per my understanding I did what made sense to me
       I am just a Newbie to this stuff and Will appreciate any help provided  
       in developing my understanding... Thanks in Advance */
+   
+   
    
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
