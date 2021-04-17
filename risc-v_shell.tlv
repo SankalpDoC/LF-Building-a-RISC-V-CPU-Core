@@ -142,7 +142,7 @@
    // Lab 7 Branch Logic Implemented
    
    // Assert these to end simulation (before Makerchip cycle limit).
-   m4+tb()
+   m4+tb()   //Simulation Passed !! Yippie!!
    *failed = *cyc_cnt > M4_MAX_CYC;
    
    m4+rf(32, 32, $reset, $wr_en, $wr_index[4:0], $wr_data[31:0], $rd_en1, $rd_index1[4:0], $rd_data1, $rd_en2, $rd_index2[4:0], $rd_data2)
