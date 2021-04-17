@@ -101,45 +101,25 @@
    $is_add = $dec_bits ==? 11'b0_000_0110011;
    
    `BOGUS_USE($imm $is_add $is_addi $is_beq $is_bge $is_bgeu $is_blt $is_bltu $is_bne)
+   
    // Lab 3 DECoder Implemented
    
    
+   $rd_en1 = $rs1_valid;
+   $rd_en2 = $rs2_valid;
    
+   $rd_index1[4:0] = $rd_en1 ? $rs1 : 5'd0;
+   $rd_index2[4:0] = $rd_en2 ? $rs2 : 5'd0;
    
-   // ----------------------------------------------EVERYTHING LOOKS GOOD TILL HERE-------------------------------------------------
-   
-   
-   
-   //Below code for "Connect the appropriate decode output signals to the register file read input signals to read the correct registers when they are needed."
-   
-   //Asserting Read-enable OF RF when RS field of instruction is valid
-   $rd1_en = $rs1_valid;
-   $rd2_en = $rs2_valid;
-   // works fine till here
-   
-   // update read-index only if read-enable is asserted, else make it zero
-   $rd1_index = $rd1_en ? $rs1 : 5'd0;
-   $rd2_index = $rd2_en ? $rs2 : 5'd0;
-   // No viz or waveform produced on compilation.
-   // I've referred the reference solutions but as the rf macro itself contains a lot of different sig It just confuses me more. 
-   
-   // Below code for "Connect the output read data to new signals named $src1_value and $src2_value. (Bit ranges are not needed, as they are explicit within the macro definition.)"
-   $src1_value = $rd1_data;
-   $src2_value = $rd2_data;
-   
-   
-   
-   /* As per my understanding I did what made sense to me
-      I am just a Newbie to this stuff and Will appreciate any help provided  
-      in developing my understanding... Thanks in Advance */
-   
+   $src1_value[31:0] = $rd_data1;
+   $src2_value[31:0] = $rd_data2;
    
    
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
    *failed = *cyc_cnt > M4_MAX_CYC;
    
-   m4+rf(32, 32, $reset, $wr_en, $wr_index[4:0], $wr_data[31:0], $rd1_en, $rd1_index[4:0], $rd1_data, $rd2_en, $rd2_index[4:0], $rd2_data)
+   m4+rf(32, 32, $reset, $wr_en, $wr_index[4:0], $wr_data[31:0], $rd_en1, $rd_index1[4:0], $rd_data1, $rd_en2, $rd_index2[4:0], $rd_data2)
    //m4+dmem(32, 32, $reset, $addr[4:0], $wr_en, $wr_data[31:0], $rd_en, $rd_data)
    m4+cpu_viz()
 \SV
