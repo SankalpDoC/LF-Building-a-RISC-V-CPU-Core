@@ -142,8 +142,7 @@
                                       {31'b0, $src1_value[31]} ) :
                    $is_sra   ? $sra_rslt[31:0] :
                    $is_srai  ? $srai_rslt[31:0] :
-                   $is_load  ? $src1_value + $imm :
-                   $is_s_instr ? $src1_value + $imm :
+                   ($is_load || $is_s_instr) ? $src1_value + $imm :
                                        32'b0;
    
    $wr_en = {$rd == 5'd0} ? 1'b0 : $rd_valid;
