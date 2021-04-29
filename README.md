@@ -8,7 +8,7 @@
 
 
 
-If this peaks your interest, and you wanna take this up a notch... These ideas might help:
+If this peaks your interest, and you wanna take this up a notch... Then you may wanna:
   - Try the tutorials in [Makerchip](https://makerchip.com).
   - Learn more about [TL-Verilog](https://redwoodeda.com/tl-verilog).
   - Explore the [RISC-V](https://riscv.org) ecosystem.
