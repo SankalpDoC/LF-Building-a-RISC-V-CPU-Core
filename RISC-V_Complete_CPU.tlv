@@ -18,9 +18,9 @@
    
    $pc[31:0] = >>1$next_pc;
    
-   // [Lab 1]Implemented Program Counter pc ()
+   //Implemented Program Counter pc ()
    `READONLY_MEM($pc , $$instr[31:0])
-   // [Lab 2]Implemented Instruction Memory IMem ()
+   //Implemented Instruction Memory IMem ()
    
    $is_i_instr = $instr[6:2] ==? 5'b0000x || 
                  $instr[6:2] ==? 5'b001x0 || 
@@ -66,6 +66,7 @@
    // Extracting immediate instruction fields 
    
    $dec_bits[10:0] = {$funct7[5],$funct3,$opcode};
+   
    $is_beq = $dec_bits ==? 11'bx_000_1100011;
    $is_bne = $dec_bits ==? 11'bx_001_1100011;
    $is_blt = $dec_bits ==? 11'bx_100_1100011;
@@ -74,12 +75,33 @@
    $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
    $is_addi = $dec_bits ==? 11'bx_000_0010011;
    $is_add = $dec_bits ==? 11'b0_000_0110011;
-   // Determining specific instructions
    
-   `BOGUS_USE($imm $is_add $is_addi $is_beq $is_bge $is_bgeu $is_blt $is_bltu $is_bne)
-   // [Lab 3]Implemented Decode Logic
+   $is_lui = $dec_bits ==? 11'bx_xxx_0110111;
+   $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;
+   $is_jal = $dec_bits ==? 11'bx_xxx_1101111;
+   $is_jalr = $dec_bits ==? 11'bx_000_1100111;
+   $is_slti = $dec_bits ==? 11'bx_010_0010011;
+   $is_sltiu = $dec_bits ==? 11'bx_011_0010011;
+   $is_xori = $dec_bits ==? 11'bx_100_0010011;
+   $is_ori = $dec_bits ==? 11'bx_110_0010011;
+   $is_andi = $dec_bits ==? 11'bx_111_0010011;
+   $is_slli = $dec_bits ==? 11'b0_001_0010011;
+   $is_srli = $dec_bits ==? 11'b0_101_0010011;
+   $is_srai = $dec_bits ==? 11'b1_101_0010011;
+   $is_sub = $dec_bits ==? 11'b1_000_0110011;
+   $is_sll = $dec_bits ==? 11'b0_001_0110011;
+   $is_slt = $dec_bits ==? 11'b0_010_0110011;
+   $is_sltu = $dec_bits ==? 11'b0_011_0110011;
+   $is_xor = $dec_bits ==? 11'b0_100_0110011;
+   $is_srl = $dec_bits ==? 11'b0_101_0110011;
+   $is_sra = $dec_bits ==? 11'b1_101_0110011;
+   $is_or = $dec_bits ==? 11'b0_110_0110011;
+   $is_and = $dec_bits ==? 11'b0_111_0110011;
+   // Determining all instructions except load and store
    
-   // [Lab 4]See m4+rf(...) macro below
+   $is_load = $opcode ==? 7'b0000011; // Assigning is_load based on just opcode
+   
+   
    
    $result[31:0] = $is_addi ? $src1_value + $imm :
                    $is_add ? $src1_value + $src2_value :
