@@ -12,6 +12,7 @@ To see the code running, head towards [Makerchip's Official Website](http://make
 
 
 If this peaks your interest, and makes you curious... Then you might wanna:
+  - Enroll in [Building a RISC-V CPU Core Course](https://www.edx.org/course/building-a-risc-v-cpu-core) for free.
   - Try the tutorials in [Makerchip](https://makerchip.com).
   - Learn more about [TL-Verilog](https://redwoodeda.com/tl-verilog).
   - Explore the [RISC-V](https://riscv.org) ecosystem.
