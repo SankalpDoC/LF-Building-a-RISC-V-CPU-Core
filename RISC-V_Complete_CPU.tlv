@@ -17,8 +17,8 @@
    $reset = *reset;
    
    $pc[31:0] = >>1$next_pc;
-   
    //Implemented Program Counter pc ()
+   
    `READONLY_MEM($pc , $$instr[31:0])
    //Implemented Instruction Memory IMem ()
    
@@ -101,7 +101,18 @@
    
    $is_load = $opcode ==? 7'b0000011; // Assigning is_load based on just opcode
    
+   // SLTU and SLTI (set if less than,unsigned) results:
+   $sltu_rslt[31:0] = {31'b0, $src1_value < $src2_value };
+   $sltiu_rslt[31:0] = {31'b0, $src1_value < $imm};
    
+   // SRA and SRAI (shift right,arithmetic) results:
+   // sign-extended src1
+   $sext_src1[63:0] = { {32{$src1_value[31]}}, $src1_value};
+   
+   // 64-bit sign-extended results. to be truncated
+   $sra_rslt[63:0] = $sext_src1 >> $src2_value[4:0];
+   $srai_rslt[63:0] = $sext_src1 >> $imm[4:0];
+                   // Sub-expressions needed by the ALU
    
    $result[31:0] = $is_andi  ? $src1_value & $imm :
                    $is_ori   ? $src1_value | $imm :
@@ -154,11 +165,12 @@
    // Branch/Jump Logic Implemented
    
    
+   
    m4+tb()   //Simulation Passed !! Yippie!!
    *failed = *cyc_cnt > M4_MAX_CYC;
    
-   m4+rf(32, 32, $reset, $rd_valid, $rd, $result, $rs1_valid, $rs1, $src1_value, $rs2_valid, $rs2, $src2_value)
-   //m4+dmem(32, 32, $reset, $addr[4:0], $wr_en, $wr_data[31:0], $rd_en, $rd_data)
+   m4+rf(32, 32, $reset, $rd_valid, $rd, $is_load ? $ld_data : $result, $rs1_valid, $rs1, $src1_value, $rs2_valid, $rs2, $src2_value)
+   m4+dmem(32, 32, $reset, $result[6:2], $is_s_instr, $src2_value, $is_load, $ld_data)
    m4+cpu_viz()
 
 \SV
