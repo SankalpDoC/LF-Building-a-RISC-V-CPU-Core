@@ -123,7 +123,7 @@
                $is_bgeu ? ($src1_value >= $src2_value) :
                                            1'b0;
    
-   $br_tgt_pc[31:0] = $taken_br ? $pc + $imm : $pc;
+   $br_tgt_pc[31:0] = $pc + $imm;
    $next_pc[31:0] = $reset ? '0 :
                     $taken_br ? $br_tgt_pc :
                     $pc + 32'd4;
