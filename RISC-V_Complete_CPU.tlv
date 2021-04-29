@@ -143,13 +143,17 @@
                $is_bgeu ? ($src1_value >= $src2_value) :
                                            1'b0;
    
-   $br_tgt_pc[31:0] = $taken_br ? $pc + $imm : $pc;
+   $br_tgt_pc[31:0] = $pc + $imm;
+   $jalr_tgt_pc[31:0] = $src1_value + $imm;
+   
    $next_pc[31:0] = $reset ? '0 :
                     $taken_br ? $br_tgt_pc :
+                    $is_jal ? $br_tgt_pc :
+                    $is_jalr ? $jalr_tgt_pc :
                     $pc + 32'd4;
-   // Branch Logic Implemented
+   // Branch/Jump Logic Implemented
    
-   // Assert these to end simulation (before Makerchip cycle limit).
+   
    m4+tb()   //Simulation Passed !! Yippie!!
    *failed = *cyc_cnt > M4_MAX_CYC;
    
