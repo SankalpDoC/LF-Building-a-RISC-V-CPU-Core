@@ -5,13 +5,13 @@ Here I'll be saving all of my work while following the [Building a RISC-V CPU Co
 
 ![VIZ](lib/LF_VIZ.png)
 
-So 
+To see the code running, head towards [Makerchip's Official Website](http://makerchip.com/) and Launch the MakerChip IDE or simply just [click here](http://makerchip.com/sandbox/) and paste the code from [RISC-V_Subset_CPU.tlv](RISC-V_Subset_CPU.tlv) or [RISC-V_Complete_CPU.tlv](RISC-V_Complete_CPU.tlv) in the "EDITOR" tab of the IDE. Hit <Ctrl>+Enter to compile. And Enjoy... ;)
 
 ![Final Core](lib/riscv.svg)
 
 
 
-If this peaks your interest, and you wanna take this up a notch... Then you may wanna:
+If this peaks your interest, and makes you curious... Then you might wanna:
   - Try the tutorials in [Makerchip](https://makerchip.com).
   - Learn more about [TL-Verilog](https://redwoodeda.com/tl-verilog).
   - Explore the [RISC-V](https://riscv.org) ecosystem.
