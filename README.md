@@ -1,7 +1,7 @@
 # Building a RISC-V CPU Core
 
 
-![VIZ](LF_VIZ.png)
+![VIZ](lib/LF_VIZ.png)
 
 
 ![Final Core](lib/riscv.svg)
